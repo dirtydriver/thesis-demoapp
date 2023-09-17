@@ -18,6 +18,9 @@ jobs:
         with:
           go-version: 1.x
 
+      - name: Change to app directory
+        run: cd app
+        
       - name: Build
         run: go build -o myapp
 

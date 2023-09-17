@@ -18,14 +18,8 @@ jobs:
         with:
           go-version: 1.x
 
-      - name: Change to app directory
-        run: cd app
-
-      - name: List directory content
-        run: ls -l
-        
       - name: Build
-        run: go build -o myapp
+        run: go build /app -o myapp
 
       - name: Test
         run: go test ./...

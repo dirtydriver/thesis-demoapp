@@ -20,6 +20,9 @@ jobs:
 
       - name: Change to app directory
         run: cd app
+
+      - name: List directory content
+        run: ls -l
         
       - name: Build
         run: go build -o myapp

@@ -1,0 +1,33 @@
+name: Build Docker Image on Main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: actions/setup-docker@v2
+        with:
+          docker-version: '20.10.7'
+
+      - name: Generate Version
+        id: version
+        run: echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: |
+          docker build -t thesis-demoapp:$GITHUB_ENV.VERSION .
+          docker login -u ${{ secrets.NEXUS_USER }} -p ${{ secrets.NEXUS_PASS }} $NEXUS_DOCKER_URL
+          docker tag thesis-demoapp:$GITHUB_ENV.VERSION $NEXUS_DOCKER_URL/thesis-demoapp:$GITHUB_ENV.VERSION
+          docker push $NEXUS_DOCKER_URL/thesis-demoapp:$GITHUB_ENV.VERSION

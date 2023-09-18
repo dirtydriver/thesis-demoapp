@@ -1,4 +1,4 @@
-name: Build Docker Image on Main
+name: Build Docker Image on feature
 
 on:
     push:
@@ -12,12 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Docker
-        uses: actions/setup-docker@v2
-        with:
-          docker-version: '20.10.7'
-
+        
       - name: Generate Version
         id: version
         run: echo "VERSION=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV

@@ -20,7 +20,7 @@ jobs:
       - name: Login to Neuxs
         uses: docker/login-action@v3
         with:
-          registry: registry.gitlab.com
+          registry: nexus.petruska.dev
           username: ${{ secrets.NEXUS_USER }}
           password: ${{ secrets.NEXUS_PASS }}
 

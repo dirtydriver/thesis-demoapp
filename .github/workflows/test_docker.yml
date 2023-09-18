@@ -27,5 +27,5 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t thesis-demoapp:$VERSION .
-          docker tag thesis-demoapp:$VERSION $NEXUS_DOCKER_URL/thesis-demoapp:$VERSION
-          docker push $NEXUS_DOCKER_URL/thesis-demoapp:$VERSION
+          docker tag thesis-demoapp:$VERSION env.NEXUS_DOCKER_URL/thesis-demoapp:$VERSION
+          docker push env.NEXUS_DOCKER_URL/thesis-demoapp:$VERSION

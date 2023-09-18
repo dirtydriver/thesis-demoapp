@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t thesis-demoapp:$GITHUB_ENV.VERSION .
+          docker build -t thesis-demoapp:$VERSION .
           docker login -u ${{ secrets.NEXUS_USER }} -p ${{ secrets.NEXUS_PASS }} $NEXUS_DOCKER_URL
-          docker tag thesis-demoapp:$GITHUB_ENV.VERSION $NEXUS_DOCKER_URL/thesis-demoapp:$GITHUB_ENV.VERSION
-          docker push $NEXUS_DOCKER_URL/thesis-demoapp:$GITHUB_ENV.VERSION
+          docker tag thesis-demoapp:$VERSION $NEXUS_DOCKER_URL/thesis-demoapp:$VERSION
+          docker push $NEXUS_DOCKER_URL/thesis-demoapp:$VERSION

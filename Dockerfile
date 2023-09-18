@@ -11,5 +11,6 @@ RUN go build -o myapp
 # Alkalmazás futtató image létrehozása
 FROM alpine:latest
 WORKDIR /app
+RUN apk add libc6-compat
 COPY --from=builder /app/myapp .
 CMD ["./myapp"]

@@ -16,7 +16,7 @@ jobs:
         
       - name: Generate Version
         id: semantic_version
-        uses: paulhatch/semantic-version@v5.2.3
+        uses: PaulHatch/semantic-version@v5.2.1
         with:
           branch: 'feature/*'
           major_pattern: "breaking:"

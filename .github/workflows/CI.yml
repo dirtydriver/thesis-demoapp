@@ -26,7 +26,7 @@ jobs:
           minor_pattern: "feat:"
           version_format: "v${major}.${minor}.${patch}-prerelease${increment}"        
           debug: true
-          
+
       - name: Login to Neuxs
         uses: docker/login-action@v3
         with:
@@ -46,6 +46,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: ${{ steps.versioning.outputs.version }}
+          tag_name: ${{ steps.semantic_version.outputs.version }}
+          release_name: ${{ steps.semantic_version.outputs.version }}
           prerelease: true

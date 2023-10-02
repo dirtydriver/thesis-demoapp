@@ -29,6 +29,24 @@ jobs:
           username: ${{ secrets.NEXUS_USER }}
           password: ${{ secrets.NEXUS_PASS }}
 
+      - name: Update Docker Tag in Helm Values File
+        run: |
+          sed -i 's/^tag: .*$/tag: "${{ env.VERSION }}"/' helm/values.yaml
+
+      - name: Update version in Chart.yaml 
+        run: |
+          sed -i 's/^tag: .*$/tag: "${{ env.VERSION }}"/' helm/values.yaml
+
+      - name: Helm Package
+        run: |
+          cd helm && helm package .
+
+      - name: Upload to Nexus
+        run: |
+            curl -u ${{ secrets.NEXUS_USER }}:${{ secrets.NEXUS_PASS }} \
+                  --upload-file ./thesis-demoapp-${{ env.VERSION }}.tgz \
+                  https://nexus.petruska.dev/repository/thesis-helm/    
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:

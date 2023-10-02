@@ -40,6 +40,24 @@ jobs:
           docker tag thesis-demoapp:${{ steps.semantic_version.outputs.version }} $NEXUS_DOCKER_URL/thesis-demoapp:${{ steps.semantic_version.outputs.version }}
           docker push $NEXUS_DOCKER_URL/thesis-demoapp:${{ steps.semantic_version.outputs.version }}
 
+      - name: Update Docker Tag in Helm Values File
+        run: |
+          sed -i 's/^tag: .*$/tag: "${{ steps.semantic_version.outputs.version }}"/' helm/values.yaml
+
+      - name: Update version in Chart.yaml 
+        run: |
+          sed -i 's/^tag: .*$/tag: "${{ steps.semantic_version.outputs.version }}"/' helm/values.yaml
+
+      - name: Helm Package
+        run: |
+          cd helm && helm package .
+
+      - name: Upload to Nexus
+        run: |
+            curl -u ${{ secrets.NEXUS_USER }}:${{ secrets.NEXUS_PASS }} \
+                 --upload-file ./thesis-demoapp-${{ steps.semantic_version.outputs.version }}.tgz \
+                 https://nexus.petruska.dev/repository/thesis-helm/
+
       - name: Create Release
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         uses: actions/create-release@v1

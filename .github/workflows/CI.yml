@@ -46,7 +46,7 @@ jobs:
 
       - name: Update version in Chart.yaml 
         run: |
-          sed -i 's/^tag: .*$/tag: "${{ steps.semantic_version.outputs.version }}"/' helm/values.yaml
+          sed -i 's/^version: .*$/version: "${{ steps.semantic_version.outputs.version }}"/' helm/Chart.yaml
 
       - name: Helm Package
         run: |

@@ -55,7 +55,7 @@ jobs:
       - name: Upload to Nexus
         run: |
             curl -u ${{ secrets.NEXUS_USER }}:${{ secrets.NEXUS_PASS }} \
-                 --upload-file ./thesis-demoapp-${{ steps.semantic_version.outputs.version }}.tgz \
+                 --upload-file helm/thesis-demoapp-${{ steps.semantic_version.outputs.version }}.tgz \
                  https://nexus.petruska.dev/repository/thesis-helm/
 
       - name: Create Release

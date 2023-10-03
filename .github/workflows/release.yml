@@ -35,7 +35,7 @@ jobs:
 
       - name: Update version in Chart.yaml 
         run: |
-          sed -i 's/^tag: .*$/tag: "${{ env.VERSION }}"/' helm/values.yaml
+          sed -i 's/^version: .*$/version: "${{ env.VERSION }}"/' helm/Chart.yaml
 
       - name: Helm Package
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Upload to Nexus
         run: |
             curl -u ${{ secrets.NEXUS_USER }}:${{ secrets.NEXUS_PASS }} \
-                  --upload-file ./thesis-demoapp-${{ env.VERSION }}.tgz \
+                  --upload-file helm/thesis-demoapp-${{ env.VERSION }}.tgz \
                   https://nexus.petruska.dev/repository/thesis-helm/    
 
       - name: Build and push

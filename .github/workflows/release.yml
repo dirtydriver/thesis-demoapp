@@ -39,6 +39,7 @@ jobs:
 
       - name: Helm Package
         run: |
+          cat values.yaml
           cd helm && helm package .
 
       - name: Upload to Nexus

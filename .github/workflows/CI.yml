@@ -43,6 +43,8 @@ jobs:
       - name: Update Docker Tag in Helm Values File
         run: |
           sed -i 's/^tag: .*$/tag: "${{ steps.semantic_version.outputs.version }}"/' helm/values.yaml
+          cat  helm/values.yaml
+
 
       - name: Update version in Chart.yaml 
         run: |
@@ -50,6 +52,7 @@ jobs:
 
       - name: Helm Package
         run: |
+          cat  helm/values.yaml
           cd helm && helm package .
 
       - name: Upload to Nexus

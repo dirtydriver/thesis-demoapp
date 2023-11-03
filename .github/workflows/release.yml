@@ -5,7 +5,7 @@ on:
     tags:
       - 'v*'
 jobs:
-  docker:
+  release_packages:
     runs-on: ubuntu-latest
     env:
         NEXUS_DOCKER_URL: nexus.petruska.dev
@@ -46,7 +46,7 @@ jobs:
         run: |
             curl -u ${{ secrets.NEXUS_USER }}:${{ secrets.NEXUS_PASS }} \
                   --upload-file helm/thesis-demoapp-${{ env.VERSION }}.tgz \
-                  https://nexus.petruska.dev/repository/thesis-helm/    
+                  https://nexus.petruska.dev/repository/thesis-helm-final/    
 
       - name: Build and push
         uses: docker/build-push-action@v2

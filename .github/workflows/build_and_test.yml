@@ -1,5 +1,4 @@
-name: Build, Test, and Push to Private Registry
-
+name: Build and Test
 on:
   push:
     branches:
@@ -7,7 +6,7 @@ on:
       - 'patch/*'
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:

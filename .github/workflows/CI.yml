@@ -6,7 +6,7 @@ on:
         - 'main'
 
 jobs:
-  docker:
+  build_and_deploy:
     runs-on: ubuntu-latest
     env:
         NEXUS_DOCKER_URL: nexus.petruska.dev

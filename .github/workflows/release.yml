@@ -31,11 +31,11 @@ jobs:
 
       - name: Update Docker Tag in Helm Values File
         run: |
-          sed -i 's/^tag: .*$/tag: "${{ env.VERSION }}"/' helm/values.yaml
+          sed -i 's/tag: .*$/tag: "${{ env.VERSION }}"/' helm/values.yaml
 
       - name: Update version in Chart.yaml 
         run: |
-          sed -i 's/^version: .*$/version: "${{ env.VERSION }}"/' helm/Chart.yaml
+          sed -i 's/version: .*$/version: "${{ env.VERSION }}"/' helm/Chart.yaml
 
       - name: Helm Package
         run: |

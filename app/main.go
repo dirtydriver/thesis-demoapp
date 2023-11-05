@@ -48,6 +48,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		message.ID = generateID()
 		message.DateTime = time.Now()
 		messages = append(messages, message)
+		fmt.Fprintln(w, "Message received and stored.")
 		log.Println("New message received to the / endpoint ")
 	} else if r.Method == "GET" {
 		response, err := json.Marshal(messages)
@@ -65,5 +66,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateID() string {
+	time.Sleep(1)
 	return fmt.Sprintf("%d", time.Now().UnixNano())
 }

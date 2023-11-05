@@ -18,10 +18,25 @@ type Message struct {
 var messages []Message
 
 func main() {
+
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/status", serverStatus)
+	log.Println("Application has Started ....")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+func serverStatus(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		log.Println("/status endpoint was called")
 
+		msg := map[string]string{"Message": "A szerver működik"}
+		status, err := json.Marshal(msg)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(status)
+	}
+}
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		var message Message
@@ -33,7 +48,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		message.ID = generateID()
 		message.DateTime = time.Now()
 		messages = append(messages, message)
-		fmt.Fprintln(w, "Message received and stored.")
+		log.Println("New message received to the / endpoint ")
 	} else if r.Method == "GET" {
 		response, err := json.Marshal(messages)
 		if err != nil {
@@ -42,6 +57,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(response)
+		log.Println("Message was queried from the / endpoint ")
+
 	} else {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}

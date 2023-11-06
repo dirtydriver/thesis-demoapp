@@ -26,13 +26,12 @@ func main() {
 }
 func serverStatus(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		log.Println("/status endpoint was called")
-
 		msg := map[string]string{"Message": "A szerver működik"}
 		status, err := json.Marshal(msg)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
+		log.Println("/status endpoint was called")
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(status)
 	}

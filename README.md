@@ -1,2 +1,2 @@
 # thesis-demoapp
-Demo application for thesis to represent the CI/CD and Webhook.
+Demo alkalmazás és CI/CD állományok a szakdolgozathoz.
